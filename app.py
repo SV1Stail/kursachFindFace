@@ -42,13 +42,13 @@ def analyze_face(face_img):
     face_gray = cv2.cvtColor(face_img, cv2.COLOR_BGR2GRAY)
     face_gray = cv2.resize(face_gray, (64, 64))
 
-    blob_emotion = cv2.dnn.blobFromImage(face_gray, 1.0 / 255, (64, 64),
-                                         (0, 0, 0), swapRB=False, crop=False)
+    blob_emotion = cv2.dnn.blobFromImage(face_gray, 1.0 / 255, (64, 64), (0, 0, 0), swapRB=False, crop=False)
     emotion_net.setInput(blob_emotion)
     emotion_preds = emotion_net.forward()
     emotion = EMOTIONS[np.argmax(emotion_preds)]
 
     return gender, age, emotion
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
